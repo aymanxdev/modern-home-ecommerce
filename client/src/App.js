@@ -6,16 +6,15 @@ import Login from "./pages/Login";
 import ProductPage from "./pages/ProductPage";
 import ProductsList from "./pages/ProductsList";
 import Register from "./pages/Register";
+
 import {
   BrowserRouter,
   Routes,
   Route,
   Navigate,
-  useNavigate,
 } from "react-router-dom";
 function App() {
   const user = true;
-  // const navigate = useNavigate()
   return (
     <BrowserRouter>
       <div className="App">
@@ -36,8 +35,8 @@ function App() {
           />
         </Routes>
       </div>
-    </BrowserRouter>
-  );
+    </BrowserRouter>)
+
 }
 
 export default App;

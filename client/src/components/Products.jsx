@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Product from "./Product";
 import { popularProducts } from "../data/productsData";
 import axios from "axios";
+=======
+import React from "react";
+import styled from "styled-components";
+import Product from "./Product";
+import { popularProducts } from "../data/productsData";
+>>>>>>> node-server-dev
 
 const Container = styled.div`
   display: flex;
@@ -10,6 +17,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
 `;
+<<<<<<< HEAD
 const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredproducts] = useState([]);
@@ -25,6 +33,9 @@ const Products = ({ cat, filters, sort }) => {
     };
     getProducts();
   }, [cat]);
+=======
+const Products = () => {
+>>>>>>> node-server-dev
   return (
     <Container>
       {popularProducts.map((product) => (

@@ -2,6 +2,7 @@ export const popularProducts = [
   {
     id: 1,
     img: "https://bit.ly/3eM5XgL",
+
   },
   {
     id: 2,
