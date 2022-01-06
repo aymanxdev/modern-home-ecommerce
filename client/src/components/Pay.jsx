@@ -11,9 +11,7 @@ const Container = styled.div`
 `;
 const Button = styled.button``;
 
-const stripe_KEY =
-  "pk_test_51ISp76GSiXLf8ZJ0VTz3LM9T3Oo4SEDb3u8X5gqVrEgpw4FZFBW5SarvvyHKk6HwuQw2UF5CTE4GsJoO5BJ7cS8y00DUfJV9Vl";
-
+const stripe_KEY = process.env.REACT_APP_STRIPE_KEY;
 const Pay = () => {
   const [stripeToken, setStripeToken] = useState(null);
   //   const history = useHistory()

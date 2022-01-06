@@ -7,12 +7,8 @@ import ProductPage from "./pages/ProductPage";
 import ProductsList from "./pages/ProductsList";
 import Register from "./pages/Register";
 
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Success from "./pages/Success";
 function App() {
   const user = true;
   return (
@@ -23,7 +19,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/products/:category" element={<ProductsList />} />
           <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/checkout" element={<Pay />} />
+          <Route path="/success" element={<Success />} />
 
           <Route
             path="/login"
@@ -35,8 +31,8 @@ function App() {
           />
         </Routes>
       </div>
-    </BrowserRouter>)
-
+    </BrowserRouter>
+  );
 }
 
 export default App;

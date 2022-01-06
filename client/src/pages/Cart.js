@@ -1,10 +1,14 @@
 import { Add, Remove } from "@material-ui/icons";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Announceement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
+import { useSelector } from "react-redux";
+import StripeCheckout from "react-stripe-checkout";
+import { userRequest } from "../requestMethods";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -156,8 +160,35 @@ const SummaryButton = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;
+
+const stripe_KEY = process.env.REACT_APP_STRIPE_KEY;
+
 const Cart = () => {
+  const productInCart = useSelector((state) => state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const navigate = useNavigate();
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  useEffect(() => {
+    const makePaymentRequest = async () => {
+      try {
+        const res = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: productInCart.total * 100,
+        });
+        navigate("/success");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    stripeToken && makePaymentRequest();
+  }, [stripeToken, productInCart.total, navigate]);
+
   return (
     <Container>
       <Announceement />
@@ -175,68 +206,46 @@ const Cart = () => {
         </Top>
         <Bottom>
           <ProductInfo>
-            <ProductContainer>
-              <ProductDetails>
-                <Image src="https://images.unsplash.com/photo-1592078615290-033ee584e267?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80" />
-                <Details>
-                  <PorudctName>
-                    {" "}
-                    <b>Product: </b> Wood Chair
-                  </PorudctName>
-                  <ProductId>
-                    {" "}
-                    <b>ID</b> 21546588{" "}
-                  </ProductId>
-                  <ProductColour color="black" />
-                  <ProductSize>
-                    {" "}
-                    <b>Size: </b> 180cm
-                  </ProductSize>
-                </Details>
-              </ProductDetails>
-              <PriceDetails>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>£ 250 </ProductPrice>
-              </PriceDetails>
-            </ProductContainer>
+            {productInCart.products.map((product) => (
+              <ProductContainer key={product}>
+                <ProductDetails>
+                  <Image src={product.img} />
+                  <Details>
+                    <PorudctName>
+                      {" "}
+                      <b>Product: </b> {product.title}
+                    </PorudctName>
+                    <ProductId>
+                      {" "}
+                      <b>ID</b> 737373737
+                    </ProductId>
+
+                    <ProductColour color={product.colour} />
+
+                    <ProductSize>
+                      <b>Size: </b> {product.size}
+                    </ProductSize>
+                  </Details>
+                </ProductDetails>
+                <PriceDetails>
+                  <ProductAmountContainer>
+                    <Add />
+                    <ProductAmount>{product.productQuantity}</ProductAmount>
+                    <Remove />
+                  </ProductAmountContainer>
+                  <ProductPrice>
+                    £ {product.price * product.productQuantity}
+                  </ProductPrice>
+                </PriceDetails>
+              </ProductContainer>
+            ))}
             <Hr />
-            <ProductContainer>
-              <ProductDetails>
-                <Image src="https://images.unsplash.com/photo-1592434417458-53c96da451e7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80" />
-                <Details>
-                  <PorudctName>
-                    {" "}
-                    <b>Product: </b> Modern Chair
-                  </PorudctName>
-                  <ProductId>
-                    <b>ID</b> 345354353
-                  </ProductId>
-                  <ProductColour color="coral" />
-                  <ProductSize>
-                    {" "}
-                    <b>Size: </b> One Size
-                  </ProductSize>
-                </Details>
-              </ProductDetails>
-              <PriceDetails>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>1</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>£ 180 </ProductPrice>
-              </PriceDetails>
-            </ProductContainer>
           </ProductInfo>
           <Summary>
             <SummaryTitle>Order Summary</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemText>£ 400</SummaryItemText>
+              <SummaryItemText>£ {productInCart.total}</SummaryItemText>
             </SummaryItem>
 
             <SummaryItem>
@@ -250,9 +259,18 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText> Total</SummaryItemText>
-              <SummaryItemPrice>£ 404.9</SummaryItemPrice>
+              <SummaryItemPrice>£ {productInCart.total}</SummaryItemPrice>
             </SummaryItem>
-            <SummaryButton>Checkout Now</SummaryButton>
+            <StripeCheckout
+              token={onToken}
+              stripeKey={stripe_KEY}
+              name="Tiny Home Shope" // the pop-in header title
+              currency="USD"
+              amount={productInCart.total * 100}
+              description={`Your total is £${productInCart.total}`}
+            >
+              <SummaryButton>Checkout Now</SummaryButton>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>

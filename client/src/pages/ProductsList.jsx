@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import React from "react";
 import styled from "styled-components";
 import Announceement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -45,7 +44,6 @@ const Select = styled.select`
 `;
 const Option = styled.option``;
 const ProductsList = () => {
-
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
   const location = useLocation();
@@ -71,18 +69,21 @@ const ProductsList = () => {
           <Select name="colour" onChange={handleFilters}>
             <Option disabled>Color</Option>
 
-            <Option>White</Option>
-            <Option>Black</Option>
-            <Option>Red</Option>
-            <Option>Blue</Option>
-            <Option>Green</Option>
+            <Option>white</Option>
+            <Option>black</Option>
+            <Option>gray</Option>
+            <Option>Velvet</Option>
+            <Option>Brown</Option>
+            <Option>teal</Option>
+            <Option>yellow</Option>
           </Select>
 
           <Select name="size" onChange={handleFilters}>
             <Option disabled>Size</Option>
 
             <Option>Small</Option>
-            <Option>Large</Option>
+            <Option>Medium</Option>
+            <Option>Slightly Larger</Option>
           </Select>
         </Filter>
         <Filter>
