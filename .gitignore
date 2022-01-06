@@ -9,6 +9,7 @@ node_modules/
 node_modules
 /node_modules
 /client/node_modules
+/api/node_modules
 /client/.pnp
 /client/.pnp.js
 # testing
@@ -23,7 +24,8 @@ node_modules
 .env.development.local
 .env.test.local
 .env.production.local
-
+.env
+/api/.env
 
 
 # testing

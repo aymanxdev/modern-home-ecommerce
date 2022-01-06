@@ -61,9 +61,9 @@ router.get("/find/:id", async (req, res) => {
 
 // GET ALL PRODUCTS
 
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
+router.get("/", async (req, res) => {
   const qNew = req.query.new;
-  const qCategory = req.query.new;
+  const qCategory = req.query.category;
   try {
     let products;
     if (qNew) {
