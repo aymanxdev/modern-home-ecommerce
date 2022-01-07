@@ -17,7 +17,6 @@ router.post("/payment", (req, res) => {
         console.log(stripeErr);
       } else {
         res.status(200).json(stripeRes);
-        console.log(stripeRes);
       }
     }
   );

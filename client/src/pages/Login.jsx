@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../redux/apiCalls";
 
 const Container = styled.div`
   width: 100vw;
@@ -66,15 +68,52 @@ const Link = styled.a`
 `;
 
 const Login = () => {
+  const [userCredentials, setUserCredentials] = useState({
+    username: "",
+    password: "",
+  });
+  const { username, password } = userCredentials;
+
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+  // const { isFetching, error } = useSelector((state) => state.user);
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    loginUser(dispatch, { username, password });
+    // setUsername(" ");
+    // setPassword(" ");
+    setUserCredentials({
+      username: "",
+      password: "",
+    });
+  };
+
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+    setUserCredentials({ ...userCredentials, [name]: value });
+  };
+
   return (
     <Container>
       <Wrapper>
         <Title>Sign In</Title>
-        <Form>
-          <Input placeholder="username" />
-          <Input placeholder="password" />
+        <Form onSubmit={handleLoginClick}>
+          <Input
+            name="username"
+            value={username}
+            placeholder="username"
+            onChange={handleChange}
+          />
+          <Input
+            name="password"
+            value={password}
+            placeholder="password"
+            onChange={handleChange}
+          />
 
-          <Button> Login</Button>
+          <Button onClick={handleLoginClick}> Login</Button>
           <Link>Forgot my password?</Link>
           <Link>Create a new account</Link>
         </Form>

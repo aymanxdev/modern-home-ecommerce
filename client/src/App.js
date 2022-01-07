@@ -1,16 +1,16 @@
 import "./App.css";
-import Pay from "./components/Pay";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ProductPage from "./pages/ProductPage";
 import ProductsList from "./pages/ProductsList";
 import Register from "./pages/Register";
+import { useSelector } from "react-redux";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Success from "./pages/Success";
 function App() {
-  const user = true;
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <BrowserRouter>
       <div className="App">

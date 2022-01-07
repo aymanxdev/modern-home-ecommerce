@@ -22,7 +22,7 @@ mongoose
     console.log("DB connected successfully");
   })
   .catch((error) => {
-    console.log("There is an error connected to DB");
+    console.log("There is an error connecting to DB");
     console.log(error);
   });
 
