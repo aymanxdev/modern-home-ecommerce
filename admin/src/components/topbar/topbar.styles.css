@@ -1,8 +1,11 @@
 .topbar-container {
   width: 100%;
   height: 50px;
-  background-color: white;
+  background-color: whitesmoke;
   border-bottom: 0.5px solid lightgray;
+  top: 0;
+  position: sticky;
+  z-index: 999;
 }
 
 .topbar-wrapper {
@@ -14,6 +17,8 @@
 }
 
 .topbar-left {
+  display: flex;
+  flex: 1;
 }
 
 .logo {
@@ -24,6 +29,41 @@
 }
 
 .topbar-right {
+  display: flex;
+  flex: 1;
+  justify-content: end;
 }
-.topbar-icons-container {
+.right-icons-container {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.topbar-icon-container {
+  position: relative;
+  cursor: pointer;
+  color: rgb(46, 46, 46);
+}
+.topIcon-badge {
+  position: absolute;
+  top: -5px;
+  right: 0px;
+  background-color: red;
+  border-radius: 100%;
+  color: aliceblue;
+  width: 15px;
+  height: 15px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
 }
