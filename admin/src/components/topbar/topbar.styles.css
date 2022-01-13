@@ -1,11 +1,11 @@
 .topbar-container {
   width: 100%;
   height: 50px;
-  background-color: whitesmoke;
   border-bottom: 0.5px solid lightgray;
   top: 0;
   position: sticky;
   z-index: 999;
+  background-color: white;
 }
 
 .topbar-wrapper {
@@ -31,7 +31,7 @@
 .topbar-right {
   display: flex;
   flex: 1;
-  justify-content: end;
+  justify-content: flex-end;
 }
 .right-icons-container {
   width: 20%;
