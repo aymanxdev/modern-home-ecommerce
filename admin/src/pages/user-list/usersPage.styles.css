@@ -1,0 +1,51 @@
+.usersList-container {
+  flex: 4;
+}
+.alert-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 99;
+}
+.alert-bar {
+  position: absolute;
+  top: 10px;
+  width: 50%;
+}
+
+.userRow-container {
+  display: flex;
+  align-items: center;
+}
+
+.userRow-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  text-align: left;
+}
+
+.userList-edit {
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: #43c486;
+  color: white;
+  cursor: pointer;
+  margin-right: 20px;
+}
+.userList-edit:hover {
+  background-color: #197a4b;
+}
+
+.userList-iconDelete {
+  color: rgb(221, 69, 69);
+  cursor: pointer;
+}
+
+.userList-iconDelete:hover {
+  color: rgb(134, 28, 28);
+}
