@@ -23,7 +23,6 @@ function UsersPage() {
       field: "username",
       headerName: "Username",
       width: 200,
-      align: "right",
 
       renderCell: (params) => {
         return (
@@ -33,6 +32,7 @@ function UsersPage() {
               alt={params.row.username}
               className="userRow-img"
             />
+            {params.row.username}
           </div>
         );
       },
@@ -49,11 +49,15 @@ function UsersPage() {
       field: "transactions",
       headerName: "Transaction",
       width: 160,
+      align: "center",
+      headerAlign: "center",
     },
     {
       field: "action",
       headerName: "Action",
       width: 160,
+      align: "center",
+      headerAlign: "center",
       renderCell: (params) => {
         return (
           <>
@@ -73,6 +77,12 @@ function UsersPage() {
   ];
   return (
     <div className="usersList-container">
+      <div className="userTitle-container">
+        <h1 className="singleUserTitle">Users </h1>
+        <Link to="/new-user">
+          <button className="userAddButton">Add new user</button>
+        </Link>
+      </div>
       {alert && (
         <div className="alert-container">
           <Alert className="alert-bar" severity="info">
@@ -86,6 +96,7 @@ function UsersPage() {
         pageSize={8}
         rowsPerPageOptions={[8]}
         checkboxSelection
+        className="usersList-grid"
       />
     </div>
   );

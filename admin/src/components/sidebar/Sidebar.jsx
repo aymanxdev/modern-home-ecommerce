@@ -16,6 +16,7 @@ import {
   Report,
 } from "@mui/icons-material";
 import MenuItem from "../menu-item/MenuItem";
+import { Link } from "react-router-dom";
 const Sidebar = () => {
   return (
     <div className="sidebarContainer">
@@ -23,16 +24,24 @@ const Sidebar = () => {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
-            <MenuItem active icon={<LineStyleOutlined />}>
-              Home
-            </MenuItem>
+            <Link to="/" className="link">
+              <MenuItem active icon={<LineStyleOutlined />}>
+                Home
+              </MenuItem>
+            </Link>
+
             <MenuItem icon={<Timeline />}>Analytics</MenuItem>
+
             <MenuItem icon={<TrendingUp />}>Sales</MenuItem>
           </ul>
           <h3 className="sidebarTitle">Quick Menu</h3>
           <ul className="sidebarList">
-            <MenuItem icon={<PermIdentity />}>Users</MenuItem>
-            <MenuItem icon={<Storefront />}>Products</MenuItem>
+            <Link to="/users" className="link">
+              <MenuItem icon={<PermIdentity />}>Users</MenuItem>{" "}
+            </Link>
+            <Link to="products" className="link">
+              <MenuItem icon={<Storefront />}>Products</MenuItem>
+            </Link>
             <MenuItem icon={<AttachMoney />}>Transactions</MenuItem>
             <MenuItem icon={<BarChart />}>Reports</MenuItem>
           </ul>

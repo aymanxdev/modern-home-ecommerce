@@ -1,6 +1,11 @@
-* {
+body {
   box-sizing: border-box;
+  background-color: #f3f6f8;
 }
 .app-container {
   display: flex;
+}
+.link {
+  text-decoration: none;
+  color: inherit;
 }

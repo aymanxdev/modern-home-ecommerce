@@ -1,7 +1,7 @@
 .sidebarContainer {
   flex: 1;
   height: 100vh;
-  background-color: whitesmoke;
+  background-color: #f9fafb;
   position: sticky;
   top: 0px;
 }
