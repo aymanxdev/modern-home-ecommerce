@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { ProductsRows } from "../../tempData.js";
 import { Link } from "react-router-dom";
 import { DeleteOutline } from "@mui/icons-material";
 import Alert from "@mui/material/Alert";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./productsList.styles.css";
+import { getProducts } from "../../redux/apiCalls.js";
 
 function ProductsPage() {
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.product.products);
+
+  useEffect(() => {
+    getProducts(dispatch);
+  }, [dispatch]);
+
   const [ProductsListData, setProductsListData] = useState(ProductsRows);
   const [alert, setAlert] = useState(false);
   const handleProductDelete = (id) => {
@@ -19,9 +28,9 @@ function ProductsPage() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "_id", headerName: "ID", width: 200 },
     {
-      field: "img",
+      field: "product",
       headerName: "Image",
       width: 70,
       renderCell: (params) => {
@@ -29,7 +38,7 @@ function ProductsPage() {
           <div className="productRow-container">
             <img
               src={params.row.img}
-              alt={params.row.productName}
+              alt={params.row.title}
               className="productRow-img"
             />
           </div>
@@ -37,18 +46,24 @@ function ProductsPage() {
       },
     },
     {
-      field: "productName",
+      field: "title",
       headerName: "Product Name",
       width: 200,
     },
-    { field: "stock", headerName: "Inventory", width: 130 },
     {
-      field: "status",
-      headerName: "Status",
+      field: "inStock",
+      headerName: "Inventory",
       width: 130,
       align: "center",
       headerAlign: "center",
     },
+    // {
+    //   field: "status",
+    //   headerName: "Status",
+    //   width: 130,
+    //   align: "center",
+    //   headerAlign: "center",
+    // },
     {
       field: "price",
       headerName: "Price",
@@ -96,11 +111,13 @@ function ProductsPage() {
         </div>
       )}
       <DataGrid
-        rows={ProductsListData}
+        rows={products}
+        disableSelectionOnClick
         columns={columns}
         pageSize={10}
         rowsPerPageOptions={[10]}
         checkboxSelection
+        getRowId={(row) => row._id}
         className="productsList-grid"
       />
     </div>

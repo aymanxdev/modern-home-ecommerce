@@ -14,12 +14,13 @@ function FeaturedInfo() {
         setRevenue(res.data);
         console.log(res.data);
         setDifference((res.data[1].total * 100) / (res.data[0].total - 100));
+        console.log(difference);
       } catch (error) {
         console.log(error);
       }
     };
     getRevenue();
-  }, []);
+  }, [difference]);
   return (
     <div className="featured-container">
       <div className="featured-item">
