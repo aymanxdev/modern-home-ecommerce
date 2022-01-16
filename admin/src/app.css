@@ -1,6 +1,7 @@
 body {
   box-sizing: border-box;
   background-color: #f3f6f8;
+  margin: 0;
 }
 .app-container {
   display: flex;

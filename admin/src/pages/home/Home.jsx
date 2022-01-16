@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Chart from "../../components/chart/Chart";
 import FeaturedInfo from "../../components/featureInfo/FeaturedInfo";
 import "./home.styles.css";
@@ -7,6 +7,8 @@ import SmallWidget from "../../components/small-widget/SmallWidget";
 import LargeWidget from "../../components/large-widget/LargeWidget";
 
 const Home = () => {
+  const [usersStats, setUsersStats] = useState([]);
+
   return (
     <div className="home-container">
       <FeaturedInfo />

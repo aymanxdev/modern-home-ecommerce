@@ -41,7 +41,7 @@ function ProductsPage() {
       headerName: "Product Name",
       width: 200,
     },
-    { field: "stock", headerName: "Stock", width: 130 },
+    { field: "stock", headerName: "Inventory", width: 130 },
     {
       field: "status",
       headerName: "Status",

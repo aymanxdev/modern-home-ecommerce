@@ -3,12 +3,10 @@ import "./barChartBox.styles.css";
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
@@ -34,7 +32,7 @@ const BarChartBox = ({ data, title, dataKey, grid }) => {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey={dataKey} fill="#24A19C" />
+              <Bar dataKey={dataKey} fill="#24A19C" barSize={30} />
               <Tooltip />
             </BarChart>
           </ResponsiveContainer>
