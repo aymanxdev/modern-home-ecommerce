@@ -7,7 +7,7 @@ import Alert from "@mui/material/Alert";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./productsList.styles.css";
-import { getProducts } from "../../redux/apiCalls.js";
+import { deleteProduct, getProducts } from "../../redux/apiCalls.js";
 
 function ProductsPage() {
   const dispatch = useDispatch();
@@ -17,10 +17,10 @@ function ProductsPage() {
     getProducts(dispatch);
   }, [dispatch]);
 
-  const [ProductsListData, setProductsListData] = useState(ProductsRows);
+  // const [ProductsListData, setProductsListData] = useState(ProductsRows);
   const [alert, setAlert] = useState(false);
   const handleProductDelete = (id) => {
-    setProductsListData(ProductsListData.filter((item) => item.id !== id));
+    deleteProduct(dispatch, id);
     setAlert(true);
     setTimeout(() => {
       setAlert(false);
@@ -80,13 +80,13 @@ function ProductsPage() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/product/" + params.row.id + "/" + params.row.username}>
+            <Link to={"/product/" + params.row.title + "/" + params.row._id}>
               <button className="productsList-edit">Edit</button>
             </Link>
             <div>
               <DeleteOutline
                 className="productsList-iconDelete"
-                onClick={() => handleProductDelete(params.row.id)}
+                onClick={() => handleProductDelete(params.row._id)}
               />
             </div>
           </>

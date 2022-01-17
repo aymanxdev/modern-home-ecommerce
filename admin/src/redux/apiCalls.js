@@ -1,5 +1,8 @@
 import { adminRequest, publicRequest } from "../adminRequestMethods";
 import {
+  addProductFailure,
+  addProductStart,
+  addProductSuccess,
   deleteProductFailure,
   deleteProductStart,
   deleteProductSuccess,
@@ -29,6 +32,17 @@ export const getProducts = async (dispatch) => {
     dispatch(getProductsSuccess(res.data));
   } catch (error) {
     dispatch(getProductsFailure());
+    console.log(error);
+  }
+};
+
+export const addProduct = async (product, dispatch) => {
+  dispatch(addProductStart());
+  try {
+    const res = await adminRequest.post("/products", product);
+    dispatch(addProductSuccess(res.data));
+  } catch (error) {
+    dispatch(addProductFailure);
     console.log(error);
   }
 };
