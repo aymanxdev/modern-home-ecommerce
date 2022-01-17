@@ -39,6 +39,20 @@ app.use("/api/orders", orderRoute);
 app.use("/api/checkout", stripeRoute);
 
 // Listen to server
-app.listen(process.env.PORT || 5000, () => {
-  console.log("Backend server is runing successfully");
-});
+app
+  .listen(process.env.PORT || 5000, () => {
+    console.log("Backend server is runing successfully");
+  })
+  .on("error", function (error) {
+    process.once("SIGUSR2", function () {
+      process.kill(process.pid, "SIGUSR2");
+    });
+    process.on("SIGINT", function () {
+      process.kill(process.pid, "SIGINT");
+    });
+
+    process.on("uncaughtException", function (err) {
+      console.log(" UNCAUGHT EXCEPTION ");
+      console.log("[Inside 'uncaught Exception']");
+    });
+  });

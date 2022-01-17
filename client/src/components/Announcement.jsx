@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Announceement = () => {
-  return <Container>Free shipping on orders over 30</Container>;
+  return <Container>Free shipping on orders over £30</Container>;
 };
 
 export default Announceement;

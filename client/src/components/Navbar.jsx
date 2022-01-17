@@ -100,15 +100,15 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+          <Link to="/" className="link">
             <Logo> TinyHome.</Logo>
           </Link>
         </Center>
         <Right>
-          <Link to="/register">
+          <Link to="/register" className="link">
             <MenuItem>REGISTER</MenuItem>
           </Link>
-          <Link to="/login">
+          <Link to="/login" className="link">
             <MenuItem>LOGIN</MenuItem>
           </Link>
           <Link to="/cart">

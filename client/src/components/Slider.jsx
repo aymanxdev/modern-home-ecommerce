@@ -10,6 +10,7 @@ const Container = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
+  margin-bottom: 10%;
   ${mobile({
     display: "none",
   })};
@@ -48,12 +49,14 @@ const Slide = styled.div`
   background-color: #${(props) => props.bg};
 `;
 const ImageContainer = styled.div`
-  flex: 1;
+  flex: 2;
   height: 100%;
 `;
 
 const Image = styled.img`
-  height: 80%;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 `;
 
 const InfoContainer = styled.div`

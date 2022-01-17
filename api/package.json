@@ -2,10 +2,10 @@
   "name": "home-shop-api",
   "version": "1.0.0",
   "description": "Tiny Home API is the server and backend for HomeShop - TinyHome",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon server.js"
   },
   "keywords": [
     "home",
