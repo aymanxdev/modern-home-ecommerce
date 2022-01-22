@@ -3,8 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 100vw;
   height: 100vh;
+  background-image: url("../../assets/login-bg.jpeg"); /* fallback */
   background: linear-gradient(rgba(46, 45, 45, 0.5), rgba(46, 45, 45, 0.5)),
-    url("https://images.unsplash.com/photo-1616464916566-c09efd4272a8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1966&q=80"),
+    url("https://images.unsplash.com/photo-1642104704074-907c0698cbd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80"),
     center;
   display: flex;
   align-items: center;
@@ -34,6 +35,14 @@ export const Input = styled.input`
   padding: 15px;
   border-radius: 5px;
   border: 0.5px solid lightgray;
+
+  &input:disabled {
+    cursor: not-allowed;
+    background-color: gray;
+  }
+  &input:invalid {
+    border: 2px solid red;
+  }
 `;
 
 export const Button = styled.button`

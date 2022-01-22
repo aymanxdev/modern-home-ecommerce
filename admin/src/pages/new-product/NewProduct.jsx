@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./newProduct.styles.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Alert from "@mui/material/Alert";
+
 import {
   getStorage,
   ref,
@@ -10,10 +12,13 @@ import {
 import app from "../../firebase";
 import { addProduct } from "../../redux/apiCalls";
 const NewProduct = () => {
+  const [alert, setAlert] = useState(false);
   const [imgFile, setImgFile] = useState(null);
   const [inputData, setInputData] = useState({});
   const [category, setCategory] = useState([]);
   const dispatch = useDispatch();
+
+  const { error } = useSelector((state) => state.user);
 
   const handleChange = (e) => {
     setInputData((prev) => {
@@ -71,11 +76,31 @@ const NewProduct = () => {
         });
       }
     );
+    setAlert(true);
+    setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+
+    setInputData({});
   };
 
   return (
     <div className="newProduct-container">
       <h1 className="newProduct-title">New Product</h1>
+      {alert && (
+        <div className="alert-container">
+          <Alert className="alert-bar" severity="success">
+            Product successfully added to live site!
+          </Alert>
+        </div>
+      )}
+      {error && (
+        <div className="alert-container">
+          <Alert className="alert-bar" severity="error">
+            Error {error}
+          </Alert>
+        </div>
+      )}
       <form className="newProduct-form">
         <div className="newProduct-item">
           <label>Image</label>

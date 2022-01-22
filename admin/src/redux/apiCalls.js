@@ -10,7 +10,20 @@ import {
   getProductsStart,
   getProductsSuccess,
 } from "./productRedux";
-import { loginStart, loginSuccess, loginFailure } from "./userRedux";
+import {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  getUsersFailure,
+  getUsersStart,
+  getUsersSuccess,
+  deleteUserStart,
+  deleteUserFailure,
+  deleteUserSuccess,
+  addUserStart,
+  addUserFailure,
+  addUserSuccess,
+} from "./userRedux";
 
 export const loginAdmin = async (dispatch, user) => {
   dispatch(loginStart());
@@ -19,10 +32,12 @@ export const loginAdmin = async (dispatch, user) => {
     const res = await publicRequest.post("/auth/login", user);
     dispatch(loginSuccess(res.data));
   } catch (err) {
-    dispatch(loginFailure());
     console.log(err);
+    dispatch(loginFailure());
   }
 };
+
+// GET ALL Products
 
 export const getProducts = async (dispatch) => {
   dispatch(getProductsStart());
@@ -32,9 +47,10 @@ export const getProducts = async (dispatch) => {
     dispatch(getProductsSuccess(res.data));
   } catch (error) {
     dispatch(getProductsFailure());
-    console.log(error);
   }
 };
+
+// ADD NEW PRODUCT TO DB
 
 export const addProduct = async (product, dispatch) => {
   dispatch(addProductStart());
@@ -59,6 +75,51 @@ export const deleteProduct = async (dispatch, id) => {
     dispatch(deleteProductSuccess(id));
   } catch (error) {
     dispatch(deleteProductFailure());
+    console.log(error);
+  }
+};
+
+//////// USERS ASYNC CALLS
+
+export const getUsers = async (dispatch) => {
+  dispatch(getUsersStart());
+
+  try {
+    const res = await adminRequest.get("/users");
+    dispatch(getUsersSuccess(res.data));
+  } catch (error) {
+    dispatch(getUsersFailure());
+    console.log(error);
+  }
+};
+
+// ADD USER
+
+export const addCustomer = async (dispatch, customer) => {
+  dispatch(addUserStart());
+
+  try {
+    const res = await adminRequest.post("/auth/register/", customer);
+    dispatch(addUserSuccess(res.data));
+  } catch (error) {
+    dispatch(addUserFailure());
+    console.log(error);
+  }
+};
+
+/// DELTE USER
+
+export const deleteUser = async (dispatch, id) => {
+  dispatch(deleteUserStart());
+
+  try {
+    // const res = await adminRequest.delete(`/users/${id}`)
+    // dispatch(deleteUserSuccess(res.data))
+
+    // for testing purposes, will only delete from the frontend
+    dispatch(deleteUserSuccess(id));
+  } catch (error) {
+    dispatch(deleteUserFailure());
     console.log(error);
   }
 };
