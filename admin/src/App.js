@@ -10,6 +10,7 @@ import NewProduct from "./pages/new-product/NewProduct";
 import AdminLogin from "./pages/login/AdminLogin";
 import Topbar from "./components/topbar/Topbar";
 import Sidebar from "./components/sidebar/Sidebar";
+import PrivateRoute from "./components/private-route/PrivateRoute";
 
 import "./app.css";
 
@@ -20,31 +21,43 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import Error404 from "./pages/error/Error404";
 
 function App() {
-  // const admin = useSelector((state) => state.user.currentUser.isAdmin);
-  const admin = false;
-  // const admin = true;
+  const admin = useSelector((state) => state.user.currentUser?.isAdmin);
+
   return (
     <Router>
-      <Topbar />
+      {admin && <Topbar />}
+
       <div className="app-container">
-        <Sidebar />
+        {admin && <Sidebar />}
+
         <Routes>
-          <Route
-            path="/admin-login"
-            element={admin ? <Navigate to="/" replace /> : <AdminLogin />}
-          />
-          <Route path="/" element={<Home />} />
-          <Route path="/users" element={<UsersPage />} />
-          <Route path="/user/:userId/:username" element={<SingleUserPage />} />
-          <Route path="/new-user" element={<NewUserPage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route
-            path="/product/:productId/:prouctTitle"
-            element={<Product />}
-          />
-          <Route path="/new-product" element={<NewProduct />} />
+          <>
+            {/* <Route path="/" element={<PrivateRoute component={Home} />} /> */}
+            <Route element={<PrivateRoute />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/users" element={<UsersPage />} />
+              <Route
+                path="/user/:userId/:username"
+                element={<SingleUserPage />}
+              />
+              <Route path="/new-user" element={<NewUserPage />} />
+              <Route path="/products" element={<ProductsPage />} />
+              <Route
+                path="/product/:productId/:prouctTitle"
+                element={<Product />}
+              />
+              <Route path="/new-product" element={<NewProduct />} />
+            </Route>
+            <Route
+              path="/login"
+              element={admin ? <Navigate to="/" replace /> : <AdminLogin />}
+            />
+          </>
+          )
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </div>
     </Router>
