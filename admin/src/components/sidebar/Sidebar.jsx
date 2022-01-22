@@ -25,7 +25,7 @@ const Sidebar = () => {
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
             <Link to="/" className="link">
-              <MenuItem active icon={<LineStyleOutlined />}>
+              <MenuItem pathName="" icon={<LineStyleOutlined />}>
                 Home
               </MenuItem>
             </Link>
@@ -37,10 +37,14 @@ const Sidebar = () => {
           <h3 className="sidebarTitle">Quick Menu</h3>
           <ul className="sidebarList">
             <Link to="/users" className="link">
-              <MenuItem icon={<PermIdentity />}>Users</MenuItem>{" "}
+              <MenuItem pathName="users" icon={<PermIdentity />}>
+                Users
+              </MenuItem>
             </Link>
             <Link to="products" className="link">
-              <MenuItem icon={<Storefront />}>Products</MenuItem>
+              <MenuItem pathName="products" icon={<Storefront />}>
+                Products
+              </MenuItem>
             </Link>
             <MenuItem icon={<AttachMoney />}>Transactions</MenuItem>
             <MenuItem icon={<BarChart />}>Reports</MenuItem>

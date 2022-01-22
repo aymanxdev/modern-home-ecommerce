@@ -29,7 +29,7 @@ const NewProduct = () => {
     const imageFileName = new Date().getTime() + imgFile.name;
     const storage = getStorage(app);
     const storageRef = ref(storage, imageFileName);
-    const uploadTask = uploadBytesResumable(storageRef, imageFileName);
+    const uploadTask = uploadBytesResumable(storageRef, imgFile);
 
     // Register three observers:
     // 1. 'state_changed' observer, called any time the state changes
@@ -55,6 +55,7 @@ const NewProduct = () => {
       },
       (error) => {
         // Handle unsuccessful uploads
+        console.log(error);
       },
       () => {
         // Handle successful uploads on complete
@@ -66,7 +67,7 @@ const NewProduct = () => {
             categories: category,
           };
           console.log(product);
-          // addProduct(product, dispatch);
+          addProduct(product, dispatch);
         });
       }
     );

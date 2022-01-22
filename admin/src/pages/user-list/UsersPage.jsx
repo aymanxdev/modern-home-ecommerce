@@ -1,24 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./usersPage.styles.css";
 import { DataGrid } from "@mui/x-data-grid";
-import { UsersRows } from "../../tempData.js";
 import { Link } from "react-router-dom";
 import { DeleteOutline } from "@mui/icons-material";
 import Alert from "@mui/material/Alert";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteUser, getUsers } from "../../redux/apiCalls";
 
 function UsersPage() {
-  const [userListData, setUserListData] = useState(UsersRows);
+  const dispatch = useDispatch();
+  const usersList = useSelector((state) => state.user.users);
+  // const [userListData, setUserListData] = useState(UsersRows);
   const [alert, setAlert] = useState(false);
 
+  useEffect(() => {
+    getUsers(dispatch);
+  }, [dispatch]);
+
+  const Badge = ({ type }) => {
+    return (
+      <button className={"status-badge " + type.toString()}>
+        {type === true ? "Active" : "Inactive"}
+      </button>
+    );
+  };
+
   const handleUserDelete = (id) => {
-    setUserListData(userListData.filter((item) => item.id !== id));
-    setAlert(true);
+    deleteUser(dispatch, id);
+
+    // setUserListData(userListData.filter((item) => item.id !== id));
+    // setAlert(true);
     setTimeout(() => {
       setAlert(false);
     }, 2000);
   };
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "_id", headerName: "ID", width: 150 },
     {
       field: "username",
       headerName: "Username",
@@ -28,7 +45,10 @@ function UsersPage() {
         return (
           <div className="userRow-container">
             <img
-              src={params.row.avatar}
+              src={
+                usersList.img ||
+                "https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif"
+              }
               alt={params.row.username}
               className="userRow-img"
             />
@@ -41,17 +61,20 @@ function UsersPage() {
     {
       field: "status",
       headerName: "Status",
-      width: 130,
+      width: 180,
       align: "center",
       headerAlign: "center",
+      renderCell: (params) => {
+        return <Badge type={params.row.status} />;
+      },
     },
-    {
-      field: "transactions",
-      headerName: "Transaction",
-      width: 160,
-      align: "center",
-      headerAlign: "center",
-    },
+    // {
+    //   field: "transactions",
+    //   headerName: "Transaction",
+    //   width: 160,
+    //   align: "center",
+    //   headerAlign: "center",
+    // },
     {
       field: "action",
       headerName: "Action",
@@ -61,13 +84,13 @@ function UsersPage() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/user/" + params.row.id + "/" + params.row.username}>
+            <Link to={"/user/" + params.row._id + "/" + params.row.username}>
               <button className="userList-edit">Edit</button>
             </Link>
             <div>
               <DeleteOutline
                 className="userList-iconDelete"
-                onClick={() => handleUserDelete(params.row.id)}
+                onClick={() => handleUserDelete(params.row._id)}
               />
             </div>
           </>
@@ -91,11 +114,12 @@ function UsersPage() {
         </div>
       )}
       <DataGrid
-        rows={userListData}
+        rows={usersList}
         columns={columns}
-        pageSize={8}
-        rowsPerPageOptions={[8]}
+        pageSize={15}
+        rowsPerPageOptions={[15]}
         checkboxSelection
+        getRowId={(row) => row._id}
         className="usersList-grid"
       />
     </div>

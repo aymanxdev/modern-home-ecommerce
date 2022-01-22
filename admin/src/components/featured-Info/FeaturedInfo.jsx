@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./featuredInfo.styles.css";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import { adminRequest } from "../../adminRequestMethods";
+import { stats } from "./data";
 
 function FeaturedInfo() {
   const [revenue, setRevenue] = useState([]);
@@ -12,15 +13,17 @@ function FeaturedInfo() {
       try {
         const res = await adminRequest.get("/orders/incomestats");
         setRevenue(res.data);
-        console.log(res.data);
-        setDifference((res.data[1].total * 100) / (res.data[0].total - 100));
-        console.log(difference);
+        setDifference((res.data[1].total * 100) / res.data[0].total - 100);
+
+        // setRevenue(stats);
+        // setDifference((stats[1].total * 100) / stats[0].total - 100);
       } catch (error) {
         console.log(error);
       }
     };
     getRevenue();
-  }, [difference]);
+  }, []);
+
   return (
     <div className="featured-container">
       <div className="featured-item">
@@ -28,7 +31,7 @@ function FeaturedInfo() {
         <div className="featuredMoney-container">
           <span className="featuredMoney-title">£{revenue[1]?.total}</span>
           <span className="featuredMoney-rate">
-            %{Math.floor(difference)}
+            %{Math.round(difference)}
             {difference < 0 ? (
               <ArrowDownward className="featured-icon negative" />
             ) : (

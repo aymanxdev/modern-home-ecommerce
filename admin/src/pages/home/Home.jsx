@@ -6,6 +6,7 @@ import { salesData, ActiveUsersData } from "../../tempData";
 import SmallWidget from "../../components/small-widget/SmallWidget";
 import LargeWidget from "../../components/large-widget/LargeWidget";
 import { adminRequest } from "../../adminRequestMethods";
+import Alert from "@mui/material/Alert";
 
 const Home = () => {
   // const [usersStats, setUsersStats] = useState([]);
@@ -46,6 +47,11 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <Alert severity="info">
+        If you don't see the data after you login, please{" "}
+        <strong>refresh</strong> the page. I'm currently working to fix this.
+        Thank you!
+      </Alert>
       <FeaturedInfo />
       <div className="chartsHome-container">
         <Chart
