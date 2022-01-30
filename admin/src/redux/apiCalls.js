@@ -9,6 +9,9 @@ import {
   getProductsFailure,
   getProductsStart,
   getProductsSuccess,
+  updateProductFailure,
+  updateProductStart,
+  updateProductSuccess,
 } from "./productRedux";
 import {
   loginStart,
@@ -24,6 +27,8 @@ import {
   addUserFailure,
   addUserSuccess,
 } from "./userRedux";
+
+/////////////////////////////////////////// Login /////////////////////////////////////////////
 
 export const loginAdmin = async (dispatch, user) => {
   dispatch(loginStart());
@@ -79,6 +84,21 @@ export const deleteProduct = async (dispatch, id) => {
   }
 };
 
+// UPDATE PRODUCT
+
+export const updateProduct = async (dispatch, id) => {
+  dispatch(updateProductStart());
+
+  try {
+    const res = await adminRequest.put(`/products/update/${id}`);
+    dispatch(updateProductSuccess(res.data));
+  } catch (err) {
+    dispatch(updateProductFailure());
+  }
+};
+
+////////////////////////////////////////// USERS /////////////////////////////////////////
+
 //////// USERS ASYNC CALLS
 
 export const getUsers = async (dispatch) => {
@@ -107,7 +127,7 @@ export const addCustomer = async (dispatch, customer) => {
   }
 };
 
-/// DELTE USER
+/// DELETE USER
 
 export const deleteUser = async (dispatch, id) => {
   dispatch(deleteUserStart());
