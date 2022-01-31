@@ -86,11 +86,11 @@ export const deleteProduct = async (dispatch, id) => {
 
 // UPDATE PRODUCT
 
-export const updateProduct = async (dispatch, id) => {
+export const updateProduct = async (dispatch, id, product) => {
   dispatch(updateProductStart());
 
   try {
-    const res = await adminRequest.put(`/products/update/${id}`);
+    const res = await adminRequest.put(`/products/update/${id}`, product);
     dispatch(updateProductSuccess(res.data));
   } catch (err) {
     dispatch(updateProductFailure());

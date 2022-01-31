@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import "./product.styles.css";
 import { Link, useLocation } from "react-router-dom";
 import { productItemData, productViews } from "../../tempData";
 import Chart from "../../components/chart/Chart";
 import BarChartBox from "../../components/bar-chart/BarChartBox";
 import { Publish } from "@mui/icons-material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProduct } from "../../redux/apiCalls";
 function Product() {
   const location = useLocation();
   const productId = location.pathname.split("/")[3];
   const product = useSelector((state) =>
     state.product.products.find((product) => product._id === productId)
   );
+  const dispatch = useDispatch();
+  const [updateData, setUpdateData] = useState({});
+
+  const handleUpdatChange = (e) => {
+    setUpdateData((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+
+  const handleUpdateSubmit = (e) => {
+    e.preventDefault(e);
+
+    updateProduct(dispatch, productId, updateData);
+  };
   return (
     <div className="productItem-container">
       <div className="productTitle-container">
@@ -80,11 +95,26 @@ function Product() {
           <form className="productItem-form">
             <div className="productItem-formLeft">
               <label>Product Name</label>
-              <input type="text" placeholder={product.title} />
+              <input
+                name="title"
+                type="text"
+                placeholder={product.title}
+                onChange={handleUpdatChange}
+              />
               <label>Product Description</label>
-              <input type="text" placeholder={product.desc} />
+              <input
+                name="desc"
+                type="text"
+                placeholder={product.desc}
+                onChange={handleUpdatChange}
+              />
               <label>Price</label>
-              <input type="text" placeholder={product.price} />
+              <input
+                name="price"
+                type="text"
+                placeholder={product.price}
+                onChange={handleUpdatChange}
+              />
               <label>In Stock</label>
               <select name="inStock" id="idStock">
                 <option value="true">Yes</option>
@@ -108,7 +138,11 @@ function Product() {
                 </label>
                 <input type="file" id="file" style={{ display: "none" }} />
               </div>
-              <button className="productItem-updateBtn" disabled>
+              <button
+                className="productItem-updateBtn"
+                disabled
+                onClick={handleUpdateSubmit}
+              >
                 Update
               </button>
             </div>
