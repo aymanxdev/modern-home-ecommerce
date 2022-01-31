@@ -3,5 +3,6 @@ Clean and modern online shop. React and Node application for home furniture e-co
 
 In progress... 🔧 
 
+[Live site](https://tiny-home-shop.herokuapp.com/)
 
 ![tiny-home](https://github.com/aymanxdev/modern-home-ecommerce/blob/main/TinyHome%20Thumbnail.png)
