@@ -69,6 +69,22 @@ const userSlice = createSlice({
       state.isFetching = false;
       state.error = action.payload;
     },
+
+    // UPDATE USER
+    updateUserStart: (state) => {
+      state.isFetching = true;
+      state.error = false;
+    },
+    updateUserSuccess: (state, action) => {
+      state.isFetching = false;
+      state.users[
+        state.users.findIndex((item) => item._id === action.payload.id)
+      ] = action.payload.user;
+    },
+    updateUserFailure: (state) => {
+      state.isFetching = false;
+      state.erorr = true;
+    },
   },
 });
 
@@ -82,6 +98,9 @@ export const {
   addUserStart,
   addUserSuccess,
   addUserFailure,
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
   deleteUserStart,
   deleteUserSuccess,
   deleteUserFailure,
